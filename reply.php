@@ -14,9 +14,9 @@ $icann=$_POST["icann"];
 $output = shell_exec("dig   $icann  2>&1");
 echo "The IP to name mapping for  <b>$icann</b> ";
 echo  "<br><br>";
-echo $output;
+echo "<pre>$output</pre>";
 echo"<br><br>";
-$linkaddress = "https:\/\/".$icann;
-echo "<a href='$linkaddress'>Click here to go to $icann</a>";
+// $linkaddress = "https:\/\/".$icann;
+//echo "<a href='$linkaddress'>Click here to go to $icann</a>";
 echo "<br><br>";
 ?>
