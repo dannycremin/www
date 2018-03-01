@@ -16,6 +16,24 @@ if (strpos($queryentry, '.bit') !== false) {
 	$dotbitdns = "$dotbitquery.bit";
 	echo $dotbitip;
 	echo $dotbitdns;
+	
+	include "/var/databasecreds.php";	
+	$conn = new mysqli($servername, $username, $password, $dbname);	
+	if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+	}
+	$sql = "INSERT INTO records (domain_id, name, content, type, ttl, prio) SELECT * FROM (SELECT '2', '$dotbitdns', 'localhost localhost 1','SOA',86400,NULL)
+	AS tmp WHERE NOT EXISTS (SELECT * FROM records WHERE name='$dotbitdns' AND type='SOA')";	   
+
+	if (mysqli_query($conn, $sql)) {
+    echo "New record created successfully";
+	} else {
+    echo "Error: " . $sql1 . "<br>" . mysqli_error($conn);
+	}
+
+	mysqli_close($conn);
+
+	
 
 } else {
 	
@@ -27,6 +45,7 @@ if (strpos($queryentry, '.bit') !== false) {
 ?>
 
 <?php
+/*
 include "/var/databasecreds.php";
 
 // Create connection
@@ -48,7 +67,8 @@ if (mysqli_query($conn, $sql)) {
 }
 
 mysqli_close($conn);
-?>
+*/
+?> 
 
 <?php
 include "/var/databasecreds.php";
