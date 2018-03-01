@@ -11,9 +11,9 @@ if (strpos($queryentry, '.bit') !== false) {
 	echo "<pre>$dotbitqueryresult</pre>";
 	
 	$json= $dotbitqueryresult;
-	$decodedjson= json_decode($json)
+	$decodedjson= json_decode($json);
 	$dotbitip= str_replace("\"", "", $decodedjson->value);
-	echo "<pre>$dotbitip</pre>";
+	echo $dotbitip;
 
 } else {
 	
