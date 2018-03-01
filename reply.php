@@ -52,7 +52,9 @@ mysqli_close($conn);
 
 <?php
 
-$rectifyzoneoutput = shell_exec("sudo /etc/powerdns/pdns.conf pdnssec rectify-zone $dotbitweboutput 2>&1");
+//to get this to work, add www-data with access to /usr/bin/pdnssec in sudoers file
+
+$rectifyzoneoutput = shell_exec("sudo /usr/bin/pdnssec rectify-zone $dotbitweboutput 2>&1");
 echo "<pre>$rectifyzoneoutput</pre>";
 ?>
 
