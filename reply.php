@@ -100,3 +100,18 @@ echo  "<br><br>";
 echo "<pre>$output</pre>";
 ?>
 
+
+
+<?php
+// If statement for TLD or .bit
+$wilcardentry= $_POST["wildcardtextbox"];
+
+if (strpos($wilcardentry, '.bit') !== false) {
+	echo 'true';
+}
+?>
+
+
+
+
+
