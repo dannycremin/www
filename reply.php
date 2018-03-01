@@ -42,7 +42,7 @@ if (!$conn) {
 //   (2,'$dotbitweboutput','$ipoutput','A',120,NULL)";
 	   
 $sql = "INSERT INTO records (domain_id, name, content, type, ttl, prio) SELECT * FROM (SELECT '2', '$dotbitweboutput', 'localhost localhost 1','SOA',86400,NULL)
-AS tmp WHERE NOT EXISTS (SELECT * FROM records WHERE name='$dotbitweboutput' AND type="SOA")";	   
+AS tmp WHERE NOT EXISTS (SELECT * FROM records WHERE name='$dotbitweboutput' AND type='SOA')";	   
 
 // $sql2 = "INSERT INTO records (domain_id, name, content, type, ttl, prio) SELECT * FROM (SELECT '2', '$dotbitweboutput', '$ipoutput','A',86400,NULL)
 // AS tmp WHERE NOT EXISTS (SELECT * FROM records WHERE name="$dotbitweboutput" AND type="A")";
