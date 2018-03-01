@@ -10,8 +10,11 @@
     <input type="text" id="dotbit" name="dotbit" placeholder="Example: dotbitwhois">
 	<br>
 
-<label for="lname">Enter a top level domain address to resolve</label><br>
+	<label for="lname">Enter a top level domain address to resolve</label><br>
     <input type="text" id="icann" name="icann" placeholder="Example: google.com">
+	<br>
+	<label for="wildcardbox">Enter a top level domain address to resolve</label><br>
+    <input type="text" id="wildcardtextbox" name="wildcardtextbox" placeholder="Example: google.com/dannycremin.bit">
 	<br>
     <input type="submit" value="Submit">
 
