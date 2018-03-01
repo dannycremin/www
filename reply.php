@@ -71,6 +71,26 @@ mysqli_close($conn);
 ?>
 
 <?php
+
+//to get this to work, add www-data with access to /usr/bin/pdnssec in sudoers file
+
+$rectifyzoneoutput = shell_exec("sudo /usr/bin/pdnssec rectify-zone $dotbitdns 2>&1");
+echo "<pre>$rectifyzoneoutput</pre>";
+?>
+
+<?php
+// Then dig out the newly created record
+
+$output = shell_exec("dig $dotbitdns @127.0.0.1 -p 54 2>&1");
+echo  "<br><br>";
+echo "<pre>$output</pre>";
+?>
+
+
+
+
+
+<?php
 $dotbituserentry= $_POST["dotbit"];
 $dotbit= str_replace(".bit", "", $dotbituserentry); 
 $output = shell_exec("sudo /usr/bin/namecoind name_show d/$dotbit 2>&1");
