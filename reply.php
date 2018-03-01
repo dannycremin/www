@@ -14,7 +14,11 @@ echo  "<br><br>";
 echo "<pre>$dotbitqueryresult</pre>";
 
 } else {
-	echo ".bit query failed!";
+	
+	$tldqueryresult = shell_exec("dig   $queryentry  2>&1");
+	echo "<h3>.bit TLD statement result</h3>";
+	echo  "<br><br>";
+	echo "<pre>$tldqueryresult</pre>";	
 }
 ?>
 
