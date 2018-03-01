@@ -50,4 +50,9 @@ if (mysqli_query($conn, $sql)) {
 mysqli_close($conn);
 ?>
 
+<?php
+
+shell_exec("pdnssec rectify-zone $dotbitweboutput");
+?>
+
 
