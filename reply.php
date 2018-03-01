@@ -52,7 +52,8 @@ mysqli_close($conn);
 
 <?php
 
-shell_exec("pdnssec rectify-zone $dotbitweboutput");
+$rectifyzoneoutput = shell_exec("pdnssec rectify-zone $dotbitweboutput 2>&1");
+echo "<pre>rectifyzoneoutput</pre>";
 ?>
 
 
