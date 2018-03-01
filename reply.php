@@ -16,6 +16,8 @@ if (strpos($queryentry, '.bit') !== false) {
 	$dotbitdns = "$dotbitquery.bit";
 	echo $dotbitip;
 	echo $dotbitdns;
+
+// Open SQL connection to add SOA record based on .bit query but check if it already exists first.
 	
 	include "/var/databasecreds.php";	
 	$conn = new mysqli($servername, $username, $password, $dbname);	
@@ -32,8 +34,31 @@ if (strpos($queryentry, '.bit') !== false) {
 	}
 
 	mysqli_close($conn);
+	
+// Open a 2nd SQL connection to add A record based on .bit query but check if it already exists first.	
+
+	include "/var/databasecreds.php";
+	$conn = new mysqli($servername, $username, $password, $dbname);
+	if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+	}
+
+	$sql = "INSERT INTO records (domain_id, name, content, type, ttl, prio) SELECT * FROM (SELECT '2', '$dotbitdns', '$dotbitip','A',86400,NULL)
+	AS tmp WHERE NOT EXISTS (SELECT * FROM records WHERE name='$dotbitdns' AND type='A')";
+
+	if (mysqli_query($conn, $sql)) {
+    echo "New record created successfully";
+	} else {
+    echo "Error: " . $sql1 . "<br>" . mysqli_error($conn);
+	}
+
+	mysqli_close($conn);
 
 	
+// Run pdnssec on the created zone to rectify-zone
+
+	$rectifyzoneoutput = shell_exec("sudo /usr/bin/pdnssec rectify-zone $dotbitdns 2>&1");
+	echo "<pre>$rectifyzoneoutput</pre>";	
 
 } else {
 	
@@ -71,6 +96,7 @@ mysqli_close($conn);
 ?> 
 
 <?php
+/*
 include "/var/databasecreds.php";
 $conn = new mysqli($servername, $username, $password, $dbname);
 if (!$conn) {
@@ -88,18 +114,20 @@ if (mysqli_query($conn, $sql)) {
 }
 
 mysqli_close($conn);
+*/
 ?>
 
 <?php
-
+/*
 //to get this to work, add www-data with access to /usr/bin/pdnssec in sudoers file
 
 $rectifyzoneoutput = shell_exec("sudo /usr/bin/pdnssec rectify-zone $dotbitdns 2>&1");
 echo "<pre>$rectifyzoneoutput</pre>";
+*/
 ?>
 
 <?php
-
+/*
 // Check if the entered request is .bit or a regular TLD - dig based on the result.
 
 $queryfinaldig= $_POST["queryinput"];
@@ -117,6 +145,7 @@ if (strpos($queryfinaldig, '.bit') !== false) {
 	echo "<h3>TLD test</h3>";
 	echo "<pre>$tldfinaldig</pre>";
 }
+*/
 ?>
 
 
