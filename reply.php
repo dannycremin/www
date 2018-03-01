@@ -79,6 +79,30 @@ echo "<pre>$rectifyzoneoutput</pre>";
 ?>
 
 <?php
+
+// Check if the entered request is .bit or a regular TLD - dig based on the result.
+
+$queryfinaldig= $_POST["queryinput"];
+
+if (strpos($queryfinaldig, '.bit') !== false) {
+	
+	$dotbitfinaldig = shell_exec("dig $queryfinaldig @127.0.0.1 -p 54 2>&1");
+	echo "<h3>.bit test</h3>";
+	echo  "<br><br>";
+
+	echo "<pre>$dotbitfinaldig</pre>";
+
+} else {
+	$tldfinaldig = shell_exec("dig $queryfinaldig 2>&1");
+	echo "<h3>TLD test</h3>";
+	echo "<pre>$tldfinaldig</pre>";
+}
+?>
+
+
+<?php
+/*
+
 // Then dig out the newly created record
 
 $output = shell_exec("dig $dotbitdns @127.0.0.1 -p 54 2>&1");
@@ -86,11 +110,8 @@ echo  "<br><br>";
 echo "<pre>$output</pre>";
 ?>
 
-
-
-
-
 <?php
+
 $dotbituserentry= $_POST["dotbit"];
 $dotbit= str_replace(".bit", "", $dotbituserentry); 
 $output = shell_exec("sudo /usr/bin/namecoind name_show d/$dotbit 2>&1");
@@ -107,7 +128,7 @@ echo "<br><br>";
 ?>
 
 <?php
-/*
+
 
 $icann=$_POST["icann"];
 $output = shell_exec("dig   $icann  2>&1");
