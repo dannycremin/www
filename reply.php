@@ -58,8 +58,15 @@ if (strpos($queryentry, '.bit') !== false) {
 // Run pdnssec on the created zone to rectify-zone
 
 	$rectifyzoneoutput = shell_exec("sudo /usr/bin/pdnssec rectify-zone $dotbitdns 2>&1");
-	echo "<pre>$rectifyzoneoutput</pre>";	
+	echo "<pre>$rectifyzoneoutput</pre>";
 
+// Final - dig out the .bit query from pdns
+
+	$dotbitfinaldig = shell_exec("dig $queryfinaldig @127.0.0.1 -p 54 2>&1");
+	echo "<h3>.bit test</h3>";
+	echo  "<br><br>";
+	echo "<pre>$dotbitfinaldig</pre>";
+	
 } else {
 	
 	$tldqueryresult = shell_exec("dig   $queryentry  2>&1");
@@ -68,6 +75,9 @@ if (strpos($queryentry, '.bit') !== false) {
 	echo "<pre>$tldqueryresult</pre>";	
 }
 ?>
+
+
+
 
 <?php
 /*
