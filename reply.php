@@ -106,9 +106,9 @@ echo "<pre>$output</pre>";
 
 // Check if the entered domain is .bit or a regular TLD - dig based on the result.
 
-$wilcardentry= $_POST["wildcardtextbox"];
+$wildcardentry= $_POST["wildcardtextbox"];
 
-if (strpos($wilcardentry, '.bit') !== false) {
+if (strpos($wildcardentry, '.bit') !== false) {
 	
 	$output = shell_exec("dig $wildcardentry @127.0.0.1 -p 54 2>&1");
 
