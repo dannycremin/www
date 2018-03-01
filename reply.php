@@ -1,4 +1,27 @@
 <?php
+
+// Check if the entered domain is .bit or a regular TLD - dig based on the result.
+
+$queryinput= $_POST["queryinput"];
+
+if (strpos($queryinput, '.bit') !== false) {
+	
+	$dotbitquery= str_replace(".bit", "", $queryinput); 
+	$dotbitqueryresult= shell_exec("sudo /usr/bin/namecoind name_show d/$dotbitquery 2>&1");
+	
+	echo "<h3>.bit if statement result</h3>";
+	echo  "<br><br>";
+	echo "<pre>$dotbitqueryresult</pre>";
+
+} else {
+	echo ".bit query failed!";
+}
+?>
+
+
+
+
+<?php
 $dotbituserentry= $_POST["dotbit"];
 $dotbit= str_replace(".bit", "", $dotbituserentry); 
 $output = shell_exec("sudo /usr/bin/namecoind name_show d/$dotbit 2>&1");
