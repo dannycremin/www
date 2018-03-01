@@ -13,7 +13,9 @@ if (strpos($queryentry, '.bit') !== false) {
 	$json= $dotbitqueryresult;
 	$decodedjson= json_decode($json);
 	$dotbitip= str_replace("\"", "", $decodedjson->value);
+	$dotbitdns = "$dotbitquery.bit";
 	echo $dotbitip;
+	echo $dotbitdns;
 
 } else {
 	
@@ -24,8 +26,49 @@ if (strpos($queryentry, '.bit') !== false) {
 }
 ?>
 
+<?php
+include "/var/databasecreds.php";
 
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
 
+// Check connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+// Add SOA record based on .bit query but check if it already exists first.
+
+$sql = "INSERT INTO records (domain_id, name, content, type, ttl, prio) SELECT * FROM (SELECT '2', '$dotbitdns', 'localhost localhost 1','SOA',86400,NULL)
+AS tmp WHERE NOT EXISTS (SELECT * FROM records WHERE name='$dotbitdns' AND type='SOA')";	   
+
+if (mysqli_query($conn, $sql)) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql1 . "<br>" . mysqli_error($conn);
+}
+
+mysqli_close($conn);
+?>
+
+<?php
+include "/var/databasecreds.php";
+$conn = new mysqli($servername, $username, $password, $dbname);
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+// Add A record based on .bit query but check if it already exists first.
+
+$sql = "INSERT INTO records (domain_id, name, content, type, ttl, prio) SELECT * FROM (SELECT '2', '$dotbitdns', '$dotbitdns','A',86400,NULL)
+AS tmp WHERE NOT EXISTS (SELECT * FROM records WHERE name='$dotbitdns' AND type='A')";
+
+if (mysqli_query($conn, $sql)) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql1 . "<br>" . mysqli_error($conn);
+}
+
+mysqli_close($conn);
+?>
 
 <?php
 $dotbituserentry= $_POST["dotbit"];
@@ -66,16 +109,9 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
-
-// $sql = "INSERT INTO records (domain_id, name, content, type, ttl, prio)
-// VALUES (2,'$dotbitweboutput','localhost localhost 1','SOA',86400,NULL),
-//   (2,'$dotbitweboutput','$ipoutput','A',120,NULL)";
 	   
 $sql = "INSERT INTO records (domain_id, name, content, type, ttl, prio) SELECT * FROM (SELECT '2', '$dotbitweboutput', 'localhost localhost 1','SOA',86400,NULL)
 AS tmp WHERE NOT EXISTS (SELECT * FROM records WHERE name='$dotbitweboutput' AND type='SOA')";	   
-
-// "INSERT INTO records (domain_id, name, content, type, ttl, prio) SELECT * FROM (SELECT '2', '$dotbitweboutput', '$ipoutput','A',86400,NULL)
-// AS tmp WHERE NOT EXISTS (SELECT * FROM records WHERE name='$dotbitweboutput' AND type='A')";
 
 if (mysqli_query($conn, $sql)) {
     echo "New record created successfully";
