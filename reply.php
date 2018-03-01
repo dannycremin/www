@@ -44,7 +44,31 @@ if (!$conn) {
 $sql = "INSERT INTO records (domain_id, name, content, type, ttl, prio) SELECT * FROM (SELECT '2', '$dotbitweboutput', 'localhost localhost 1','SOA',86400,NULL)
 AS tmp WHERE NOT EXISTS (SELECT * FROM records WHERE name='$dotbitweboutput' AND type='SOA')";	   
 
-"INSERT INTO records (domain_id, name, content, type, ttl, prio) SELECT * FROM (SELECT '2', '$dotbitweboutput', '$ipoutput','A',86400,NULL)
+// "INSERT INTO records (domain_id, name, content, type, ttl, prio) SELECT * FROM (SELECT '2', '$dotbitweboutput', '$ipoutput','A',86400,NULL)
+// AS tmp WHERE NOT EXISTS (SELECT * FROM records WHERE name='$dotbitweboutput' AND type='A')";
+
+if (mysqli_query($conn, $sql)) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql1 . "<br>" . mysqli_error($conn);
+}
+
+mysqli_close($conn);
+?>
+
+
+<?php
+include "/var/databasecreds.php";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+$sql = "INSERT INTO records (domain_id, name, content, type, ttl, prio) SELECT * FROM (SELECT '2', '$dotbitweboutput', '$ipoutput','A',86400,NULL)
 AS tmp WHERE NOT EXISTS (SELECT * FROM records WHERE name='$dotbitweboutput' AND type='A')";
 
 if (mysqli_query($conn, $sql)) {
@@ -55,6 +79,9 @@ if (mysqli_query($conn, $sql)) {
 
 mysqli_close($conn);
 ?>
+
+
+
 
 <?php
 
