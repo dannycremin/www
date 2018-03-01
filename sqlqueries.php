@@ -18,7 +18,7 @@ AS tmp WHERE NOT EXISTS (SELECT * FROM records WHERE name="dannycremin.bit" AND 
 // Added the ability to take user input for SOA record and name.
 
 INSERT INTO records (domain_id, name, content, type, ttl, prio) SELECT * FROM (SELECT '2', '$dotbiweboutput', 'localhost localhost 1','SOA',86400,NULL)
-AS tmp WHERE NOT EXISTS (SELECT * FROM records WHERE name="$dotbitweboutput" AND type="SOA");
+AS tmp WHERE NOT EXISTS (SELECT * FROM records WHERE name="$dotbitweboutput" AND type='SOA');
 
 // Added ability to take user input for A record, name and IP.
 
