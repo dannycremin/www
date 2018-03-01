@@ -8,10 +8,12 @@ if (strpos($queryentry, '.bit') !== false) {
 	
 	$dotbitquery= str_replace(".bit", "", $queryentry); 
 	$dotbitqueryresult= shell_exec("sudo /usr/bin/namecoind name_show d/$dotbitquery 2>&1");
+	echo "<pre>$dotbitqueryresult</pre>";
 	
-echo "<h3>.bit if statement result</h3>";
-echo  "<br><br>";
-echo "<pre>$dotbitqueryresult</pre>";
+	$json= $dotbitqueryresult;
+	$decodedjson= json_decode($json)
+	$dotbitip= str_replace("\"", "", $decodedjson->value);
+	echo $dotbitip;
 
 } else {
 	
