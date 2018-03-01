@@ -16,7 +16,7 @@
 	<label for="wildcardbox">Enter a top level domain address to resolve</label><br>
     <input type="text" id="wildcardtextbox" name="wildcardtextbox" placeholder="Example: google.com/dannycremin.bit">
 	<br>
-	<label for="wildcardbox">Enter a top level domain address to resolve</label><br>
+	<label for="queryinput">Enter a top level domain address to resolve</label><br>
     <input type="text" id="queryinput" name="queryinput" placeholder="Example: google.com/dannycremin.bit">
 	<br>
     <input type="submit" value="Submit">
