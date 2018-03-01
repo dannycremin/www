@@ -58,4 +58,11 @@ $rectifyzoneoutput = shell_exec("sudo /usr/bin/pdnssec rectify-zone $dotbitwebou
 echo "<pre>$rectifyzoneoutput</pre>";
 ?>
 
+<?php
+// Then dig out the newly created record
+
+$output = shell_exec("dig $dotbitweboutput @127.0.0.1 -p 54 2>&1");
+echo  "<br><br>";
+echo "<pre>$output</pre>";
+?>
 
