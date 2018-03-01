@@ -1,5 +1,6 @@
 <?php
-$dotbit= $_POST["dotbit"];
+$dotbituserentry= $_POST["dotbit"];
+$dotbit= str_replace(".bit", "", $dotbituserentry); 
 $output = shell_exec("sudo /usr/bin/namecoind name_show d/$dotbit 2>&1");
 echo "The IP to name mapping for <b>$dotbit.bit</b>";
 $json=$output;
