@@ -110,17 +110,17 @@ $wildcardentry= $_POST["wildcardtextbox"];
 
 if (strpos($wildcardentry, '.bit') !== false) {
 	
-	$output = shell_exec("dig $wildcardentry @127.0.0.1 -p 54 2>&1");
+	$output1 = shell_exec("dig $wildcardentry @127.0.0.1 -p 54 2>&1");
 
 	echo  "<br><br>";
 
-	echo "<pre>$output</pre>";
+	echo "<pre>$output1</pre>";
 
 } else {
-	$output = shell_exec("dig $wildcardentry 2>&1");
+	$output2 = shell_exec("dig $wildcardentry 2>&1");
+	echo "<pre>$output2</pre>";
 }
 ?>
-
 
 
 
