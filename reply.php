@@ -8,7 +8,9 @@ $ipoutput= str_replace("\"", "", $djson->value);
 echo "<br><br>";
 echo $ipoutput;
 echo "<br><br>";
-echo "$dotbit . bit";
+$dotbitweboutput = "$dotbit.bit";
+echo "$dotbitweboutput";
+echo "<br><br>";
 ?>
 
 <?php
@@ -31,9 +33,20 @@ include "/var/databasecreds.php";
 $conn = new mysqli($servername, $username, $password);
 
 // Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
 }
-echo "Connected successfully";
+
+$sql = "INSERT INTO records (domain_id, name, content, type, ttl, prio)
+VALUES (2,'$dotbitweboutput','localhost localhost 1','SOA',86400,NULL)";
+
+if (mysqli_query($conn, $sql)) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
+
+mysqli_close($conn);
 ?>
+
 
