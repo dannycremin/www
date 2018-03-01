@@ -107,6 +107,8 @@ echo "<br><br>";
 ?>
 
 <?php
+/*
+
 $icann=$_POST["icann"];
 $output = shell_exec("dig   $icann  2>&1");
 echo "The IP to name mapping for  <b>$icann</b> ";
@@ -206,6 +208,8 @@ if (strpos($wildcardentry, '.bit') !== false) {
 	echo "<h3>TLD test</h3>";
 	echo "<pre>$output2</pre>";
 }
+
+*/
 ?>
 
 
