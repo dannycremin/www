@@ -38,7 +38,8 @@ if (!$conn) {
 }
 
 $sql = "INSERT INTO records (domain_id, name, content, type, ttl, prio)
-VALUES (2,'$dotbitweboutput','localhost localhost 1','SOA',86400,NULL)";
+VALUES (2,'$dotbitweboutput','localhost localhost 1','SOA',86400,NULL),
+	   (2,'$dotbitweboutput','$ipoutput','A',120,NULL)";
 
 if (mysqli_query($conn, $sql)) {
     echo "New record created successfully";
