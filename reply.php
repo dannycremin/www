@@ -37,14 +37,20 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-$sql = "INSERT INTO records (domain_id, name, content, type, ttl, prio)
-VALUES (2,'$dotbitweboutput','localhost localhost 1','SOA',86400,NULL),
-	   (2,'$dotbitweboutput','$ipoutput','A',120,NULL)";
+// $sql = "INSERT INTO records (domain_id, name, content, type, ttl, prio)
+// VALUES (2,'$dotbitweboutput','localhost localhost 1','SOA',86400,NULL),
+//   (2,'$dotbitweboutput','$ipoutput','A',120,NULL)";
+	   
+$sql1 = "INSERT INTO records (domain_id, name, content, type, ttl, prio) SELECT * FROM (SELECT '2', '$dotbiweboutput', 'localhost localhost 1','SOA',86400,NULL)
+AS tmp WHERE NOT EXISTS (SELECT * FROM records WHERE name="$dotbitweboutput" AND type="SOA")";	   
 
-if (mysqli_query($conn, $sql)) {
+$sql2 = "INSERT INTO records (domain_id, name, content, type, ttl, prio) SELECT * FROM (SELECT '2', '$dotbitweboutput', '$ipoutput','A',86400,NULL)
+AS tmp WHERE NOT EXISTS (SELECT * FROM records WHERE name="$dotbitweboutput" AND type="A")";
+
+if (mysqli_query($conn, $sql1, $sql2)) {
     echo "New record created successfully";
 } else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    echo "Error: " . $sql1 . $sql2 . "<br>" . mysqli_error($conn);
 }
 
 mysqli_close($conn);
