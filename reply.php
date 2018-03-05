@@ -113,7 +113,7 @@ if (strpos($queryentry, '.bit') !== false) {
 	
 	$tldqueryresult = shell_exec("dig   $queryentry  2>&1");
 	echo "<h3>DNS information for $queryentry</h3>";
-	echo  "<br><br>";
+	echo  "<br>";
 	echo "<pre>$tldqueryresult</pre>";	
 }
 ?>
