@@ -23,6 +23,8 @@ if (strpos($queryentry, '.bit') !== false) {
 	
 	echo $dotbitip;
 	
+	echo "<br>";
+	
 	// Output the FQDN from the blockchain
 	
 	echo "<b>FQDN pulled from the blockchain</b>";
@@ -30,6 +32,8 @@ if (strpos($queryentry, '.bit') !== false) {
 	echo "<br>";
 	
 	echo $dotbitdns;
+	
+	echo "<br>";
 
 // Open SQL connection to add SOA record based on .bit query but check if it already exists first.
 	
@@ -49,6 +53,8 @@ if (strpos($queryentry, '.bit') !== false) {
 
 	mysqli_close($conn);
 	
+	echo "<br>";
+	
 // Open a 2nd SQL connection to add A record based on .bit query but check if it already exists first.	
 
 	include "/var/databasecreds.php";
@@ -67,6 +73,8 @@ if (strpos($queryentry, '.bit') !== false) {
 	}
 
 	mysqli_close($conn);
+	
+	echo "<br>";
 
 	
 // Run pdnssec on the created zone to rectify-zone
