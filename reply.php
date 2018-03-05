@@ -1,12 +1,16 @@
 <?php
 
 // Check if the entered domain is .bit or a regular TLD - dig based on the result.
+// If user enters www. on record strip it.
+// If user enters .bit on query strip it
 
 $queryentry= $_POST["queryinput"];
 
 if (strpos($queryentry, '.bit') !== false) {
-	$queryentrynowww= str_replace("www.", "", $queryentry);
-	$dotbitquery= str_replace(".bit", "", $queryentrynowww); 
+	// If user enters www. on record strip it and pass to $querystripwww variable
+	$querystripwww= str_replace("www.", "", $queryentry);
+	// If user enters .bit on query strip it out and pass to $dotbitquery variable
+	$dotbitquery= str_replace(".bit", "", $querystripwww); 
 	$dotbitqueryresult= shell_exec("sudo /usr/bin/namecoind name_show d/$dotbitquery 2>&1");
 	echo "<pre>$dotbitqueryresult</pre>";
 	
