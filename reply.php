@@ -39,7 +39,7 @@ if (strpos($queryentry, '.bit') !== false) {
 	
 // Output the successful addition of the SOA record
 	
-	echo "<b>Successfully added SOA record to MySQL database</b>";
+	echo "<b>Check if SOA record was added to MySQL database</b>";
 	
 	echo "<br><br>";
 	
@@ -66,7 +66,7 @@ if (strpos($queryentry, '.bit') !== false) {
 
 	// Output the successful addition of the SOA record
 	
-	echo "<b>Successfully added A record to MySQL database</b>";
+	echo "<b>Check if A record was added to MySQL database</b>";
 	
 	echo "<br><br>";
 
@@ -87,7 +87,7 @@ if (strpos($queryentry, '.bit') !== false) {
 
 	mysqli_close($conn);
 	
-	echo "<br>";
+	echo "<br><br>";
 
 	
 // Run pdnssec on the created zone to rectify-zone
