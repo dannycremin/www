@@ -5,7 +5,7 @@
 $queryentry= $_POST["queryinput"];
 
 if (strpos($queryentry, '.bit') !== false) {
-	$queryentrynowww= str_replace("www.", "" $queryentry);
+	$queryentrynowww= str_replace("www.", "", $queryentry);
 	$dotbitquery= str_replace(".bit", "", $queryentrynowww); 
 	$dotbitqueryresult= shell_exec("sudo /usr/bin/namecoind name_show d/$dotbitquery 2>&1");
 	echo "<pre>$dotbitqueryresult</pre>";
@@ -89,6 +89,33 @@ if (strpos($queryentry, '.bit') !== false) {
 	
 	echo "<br><br>";
 
+// Open a 3nd SQL connection to add A record to add www. to the beginning of the newly added .bit A record entry.
+
+	// Output the successful addition of the www.record.bit output.
+	
+	echo "<b>Check if www. dotbit address was added</b>";
+	
+	echo "<br><br>";
+
+	include "/var/databasecreds.php";
+	$conn = new mysqli($servername, $username, $password, $dbname);
+	if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+	}
+
+	$sql = "INSERT INTO records (domain_id, name, content, type, ttl, prio) SELECT * FROM (SELECT '2', 'www.$dotbitdns', '$dotbitip','A',86400,NULL)
+	AS tmp WHERE NOT EXISTS (SELECT * FROM records WHERE name='www.$dotbitdns' AND type='A')";
+
+	if (mysqli_query($conn, $sql)) {
+    echo "New record created successfully";
+	} else {
+    echo "Error: " . $sql1 . "<br>" . mysqli_error($conn);
+	}
+
+	mysqli_close($conn);
+	
+	echo "<br><br>";	
+	
 	
 // Run pdnssec on the created zone to rectify-zone
 
