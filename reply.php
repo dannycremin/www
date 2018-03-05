@@ -135,7 +135,7 @@ if (strpos($queryentry, '.bit') !== false) {
 
 // Final - dig out the .bit query from pdns
 
-	$dotbitfinaldig = shell_exec("dig $dotbitdns @127.0.0.1 -p 54 2>&1");
+	$dotbitfinaldig = shell_exec("dig $queryentry @127.0.0.1 -p 54 2>&1");
 	echo "<b>Output of DNS query</b>";
 	echo "<br>";
 	echo "<pre>$dotbitfinaldig</pre>";
