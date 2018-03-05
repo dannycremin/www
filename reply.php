@@ -6,7 +6,7 @@ $queryentry= $_POST["queryinput"];
 
 if (strpos($queryentry, '.bit') !== false) {
 	
-	$dotbitquery= str_replace(".bit", "", $queryentry); 
+	$dotbitquery= str_replace(".bit" "www.",  "", $queryentry); 
 	$dotbitqueryresult= shell_exec("sudo /usr/bin/namecoind name_show d/$dotbitquery 2>&1");
 	echo "<pre>$dotbitqueryresult</pre>";
 	
