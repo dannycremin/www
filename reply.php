@@ -14,7 +14,21 @@ if (strpos($queryentry, '.bit') !== false) {
 	$decodedjson= json_decode($json);
 	$dotbitip= str_replace("\"", "", $decodedjson->value);
 	$dotbitdns = "$dotbitquery.bit";
+	
+	// Output the IP address pulled from blockchain
+	
+	echo "<b>IP address pulled from blockchain</b>";
+	
+	echo "<br>";
+	
 	echo $dotbitip;
+	
+	// Output the FQDN from the blockchain
+	
+	echo "<b>FQDN pulled from the blockchain</b>";
+	
+	echo "<br>";
+	
 	echo $dotbitdns;
 
 // Open SQL connection to add SOA record based on .bit query but check if it already exists first.
@@ -58,13 +72,20 @@ if (strpos($queryentry, '.bit') !== false) {
 // Run pdnssec on the created zone to rectify-zone
 
 	$rectifyzoneoutput = shell_exec("sudo /usr/bin/pdnssec rectify-zone $dotbitdns 2>&1");
+
+	// Output a successful rectify of zone
+	
+	echo "<b>Successfully rectified zone</b>";
+	
+	echo "<br>";
+	
 	echo "<pre>$rectifyzoneoutput</pre>";
 
 // Final - dig out the .bit query from pdns
 
 	$dotbitfinaldig = shell_exec("dig $dotbitdns @127.0.0.1 -p 54 2>&1");
-	echo "<h3>.bit test</h3>";
-	echo  "<br><br>";
+	echo "<b>Output of DNS query</b>";
+	echo  "<br>";
 	echo "<pre>$dotbitfinaldig</pre>";
 	
 } else {
