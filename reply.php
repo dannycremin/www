@@ -19,23 +19,29 @@ if (strpos($queryentry, '.bit') !== false) {
 	
 	echo "<b>IP address pulled from blockchain</b>";
 	
-	echo "<br>";
+	echo "<br><br>";
 	
 	echo $dotbitip;
 	
-	echo "<br>";
+	echo "<br><br>";
 	
 	// Output the FQDN from the blockchain
 	
 	echo "<b>FQDN pulled from the blockchain</b>";
 	
-	echo "<br>";
+	echo "<br><br>";
 	
 	echo $dotbitdns;
 	
-	echo "<br>";
+	echo "<br><br>";
 
 // Open SQL connection to add SOA record based on .bit query but check if it already exists first.
+	
+// Output the successful addition of the SOA record
+	
+	echo "<b>Successfully added SOA record to MySQL database</b>";
+	
+	echo "<br><br>";
 	
 	include "/var/databasecreds.php";	
 	$conn = new mysqli($servername, $username, $password, $dbname);	
@@ -53,9 +59,16 @@ if (strpos($queryentry, '.bit') !== false) {
 
 	mysqli_close($conn);
 	
-	echo "<br>";
+	
+	echo "<br><br>";
 	
 // Open a 2nd SQL connection to add A record based on .bit query but check if it already exists first.	
+
+	// Output the successful addition of the SOA record
+	
+	echo "<b>Successfully added A record to MySQL database</b>";
+	
+	echo "<br><br>";
 
 	include "/var/databasecreds.php";
 	$conn = new mysqli($servername, $username, $password, $dbname);
@@ -81,11 +94,11 @@ if (strpos($queryentry, '.bit') !== false) {
 
 	$rectifyzoneoutput = shell_exec("sudo /usr/bin/pdnssec rectify-zone $dotbitdns 2>&1");
 
-	// Output a successful rectify of zone
+// Output a successful rectify of zone
 	
 	echo "<b>Successfully rectified zone</b>";
 	
-	echo "<br>";
+	echo "<br><br>";
 	
 	echo "<pre>$rectifyzoneoutput</pre>";
 
@@ -93,7 +106,7 @@ if (strpos($queryentry, '.bit') !== false) {
 
 	$dotbitfinaldig = shell_exec("dig $dotbitdns @127.0.0.1 -p 54 2>&1");
 	echo "<b>Output of DNS query</b>";
-	echo  "<br>";
+	echo "<br>";
 	echo "<pre>$dotbitfinaldig</pre>";
 	
 } else {
