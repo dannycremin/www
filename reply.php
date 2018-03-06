@@ -8,7 +8,22 @@ $queryentry= $_POST["queryinput"];
 
 if (strpos($queryentry, '.bit') !== false) {
 	// If user enters www. on record strip it and pass to $querystripwww variable
+	
+	// TESTING CODE BELOW
+	echo "<b>Output before www. removed<b>";
+	echo $queryentry;
+	
+	// TESTING CODE ENDS
+	
 	$querystripwww= str_replace("www.", "", $queryentry);
+	
+	// TESTING CODE BELOW
+	echo "<b>Output after www. removed<b>";
+	echo $querystripwww;
+	
+	// TESTING CODE ENDS
+	
+	
 	// If user enters .bit on query strip it out and pass to $dotbitquery variable
 	$dotbitquery= str_replace(".bit", "", $querystripwww); 
 	$dotbitqueryresult= shell_exec("sudo /usr/bin/namecoind name_show d/$dotbitquery 2>&1");
