@@ -28,7 +28,24 @@ if (strpos($queryentry, '.bit') !== false) {
 	
 	
 	// If user enters .bit on query strip it out and pass to $dotbitquery variable
+	
+	// TESTING CODE BELOW
+	
+	echo "<b>Output before .bit removed</b>";
+	echo "<br><br>";
+	echo $querystripwww;
+	
+	// TESTING CODE ENDS
+	
 	$dotbitquery= str_replace(".bit", "", $querystripwww); 
+	
+	// TESTING CODE BELOW
+	echo "<b>Output after .bit removed</b>";
+	echo "<br><br>";
+	echo $dotbitquery;
+	
+	// TESTING CODE ENDS
+	
 	$dotbitqueryresult= shell_exec("sudo /usr/bin/namecoind name_show d/$dotbitquery 2>&1");
 	echo "<pre>$dotbitqueryresult</pre>";
 	
