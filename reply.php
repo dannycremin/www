@@ -10,7 +10,8 @@ if (strpos($queryentry, '.bit') !== false) {
 	// If user enters www. on record strip it and pass to $querystripwww variable
 	
 	// TESTING CODE BELOW
-	echo "<b>Output before www. removed<b>";
+	echo "<b>Output before www. removed</b>";
+	echo "<br>";
 	echo $queryentry;
 	
 	// TESTING CODE ENDS
@@ -18,7 +19,8 @@ if (strpos($queryentry, '.bit') !== false) {
 	$querystripwww= str_replace("www.", "", $queryentry);
 	
 	// TESTING CODE BELOW
-	echo "<b>Output after www. removed<b>";
+	echo "<b>Output after www. removed</b>";
+	echo "<br>";
 	echo $querystripwww;
 	
 	// TESTING CODE ENDS
