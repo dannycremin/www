@@ -11,8 +11,9 @@ if (strpos($queryentry, '.bit') !== false) {
 	
 	// TESTING CODE BELOW
 	echo "<b>Output before www. removed</b>";
-	echo "<br>";
+	echo "<br><br>";
 	echo $queryentry;
+	echo "<br><br>";
 	
 	// TESTING CODE ENDS
 	
@@ -20,7 +21,7 @@ if (strpos($queryentry, '.bit') !== false) {
 	
 	// TESTING CODE BELOW
 	echo "<b>Output after www. removed</b>";
-	echo "<br>";
+	echo "<br><br>";
 	echo $querystripwww;
 	
 	// TESTING CODE ENDS
