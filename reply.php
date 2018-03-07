@@ -23,7 +23,7 @@ if (strpos($queryentry, '.bit') !== false) {
 	echo "<b>Output after www. removed</b>";
 	echo "<br><br>";
 	echo $querystripwww;
-	
+	echo "<br><br>";
 	// TESTING CODE ENDS
 	
 	
@@ -34,7 +34,7 @@ if (strpos($queryentry, '.bit') !== false) {
 	echo "<b>Output before .bit removed</b>";
 	echo "<br><br>";
 	echo $querystripwww;
-	
+	echo "<br><br>";
 	// TESTING CODE ENDS
 	
 	$dotbitquery= str_replace(".bit", "", $querystripwww); 
