@@ -125,7 +125,7 @@ if (strpos($queryentry, '.bit') !== false) {
 
 
 	if (mysqli_query($conn, $sql)) {
-    echo '$sql';
+    echo $sql;
 	} else {
     echo "Error: " . $sql1 . "<br>" . mysqli_error($conn);
 	}
