@@ -103,7 +103,7 @@ if (strpos($queryentry, '.bit') !== false) {
 	}
 	$sql = "INSERT INTO records (domain_id, name, content, type, ttl, prio) SELECT * FROM (SELECT '2', '$dotbitdns', 'ns1.dan.com ns2.dan.com','SOA',86400,NULL) AS tmp WHERE NOT EXISTS (SELECT * FROM records WHERE name='$dotbitdns' AND type='SOA')";	
 
-	$sql2 = "SELECT * FROM records where name = '$dotbitdns'";
+	$sql2 = "SELECT * FROM records WHERE name ='$dotbitdns'";
 	echo $sql2;
 
 	if (mysqli_query($conn, $sql)) {
@@ -116,6 +116,26 @@ if (strpos($queryentry, '.bit') !== false) {
 	
 	
 	echo "<br><br>";
+	
+	// Test SQL connection to check if record exists //
+	
+	include "/var/databasecreds.php";	
+	$conn = new mysqli($servername, $username, $password, $dbname);	
+	if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+	}
+	$sql = "SELECT * FROM records WHERE name ='$dotbitdns'";
+
+
+	if (mysqli_query($conn, $sql)) {
+    echo "$sql";
+	} else {
+    echo "Error: " . $sql1 . "<br>" . mysqli_error($conn);
+	}
+
+	mysqli_close($conn);
+	
+	// End SQL SELECT
 	
 // Open a 2nd SQL connection to add A record based on .bit query but check if it already exists first.	
 
