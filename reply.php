@@ -101,8 +101,10 @@ if (strpos($queryentry, '.bit') !== false) {
 	if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 	}
-	$sql = "INSERT INTO records (domain_id, name, content, type, ttl, prio) SELECT * FROM (SELECT '2', '$dotbitdns', 'ns1.dan.com ns2.dan.com','SOA',86400,NULL)
-	AS tmp WHERE NOT EXISTS (SELECT * FROM records WHERE name='$dotbitdns' AND type='SOA')";	   
+	$sql = "INSERT INTO records (domain_id, name, content, type, ttl, prio) SELECT * FROM (SELECT '2', '$dotbitdns', 'ns1.dan.com ns2.dan.com','SOA',86400,NULL) AS tmp WHERE NOT EXISTS (SELECT * FROM records WHERE name='$dotbitdns' AND type='SOA')";	
+
+	$sql2 = "SELECT * FROM records where name = '$dotbitdns'";
+	echo $sql2;
 
 	if (mysqli_query($conn, $sql)) {
     echo "New record created successfully";
