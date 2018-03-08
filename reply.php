@@ -121,8 +121,8 @@ if (strpos($queryentry, '.bit') !== false) {
 	if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 	}
-	$sql = "(SELECT * FROM records WHERE name ='dannycremin.bit')";
-
+//	$sql = "(SELECT * FROM records WHERE name ='dannycremin.bit')";
+	$sql = "SELECT name FROM records";
 
 	if (mysqli_query($conn, $sql)) {
     echo $sql;
