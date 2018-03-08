@@ -121,11 +121,11 @@ if (strpos($queryentry, '.bit') !== false) {
 	if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 	}
-	$sql = "SELECT * FROM records WHERE name ='dannycremin.bit'";
+	$sql = "(SELECT * FROM records WHERE name ='dannycremin.bit')";
 
 
 	if (mysqli_query($conn, $sql)) {
-    echo "$sql";
+    echo '$sql';
 	} else {
     echo "Error: " . $sql1 . "<br>" . mysqli_error($conn);
 	}
