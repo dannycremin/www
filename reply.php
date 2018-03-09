@@ -242,6 +242,10 @@ $conn->close();
 	echo "<pre>$tldqueryresult</pre>";	
 }
 
+/*
+
+//Code to remove records from database
+
 include "/var/databasecreds.php";
 	$conn = new mysqli($servername, $username, $password, $dbname);
 	if (!$conn) {
@@ -251,7 +255,7 @@ include "/var/databasecreds.php";
 	$sql = "DELETE from records where domain_id = 2";
 
 	if (mysqli_query($conn, $sql)) {
-    echo "New record created successfully";
+    echo "All records removed from database";
 	} else {
     echo "Error: " . $sql1 . "<br>" . mysqli_error($conn);
 	}
@@ -259,7 +263,7 @@ include "/var/databasecreds.php";
 	mysqli_close($conn);
 
 
-
+*/
 
 
 ?>
