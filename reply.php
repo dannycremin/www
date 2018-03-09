@@ -1,3 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+    border: 1px solid black;
+}
+</style>
+</head>
+<body>
+
+
+
+
 <?php
 
 // Check if the entered domain is .bit or a regular TLD - dig based on the result.
@@ -101,7 +115,7 @@ if (strpos($queryentry, '.bit') !== false) {
 	if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 	}
-	$sql = "INSERT INTO records (domain_id, name, content, type, ttl, prio) SELECT * FROM (SELECT '2', '$dotbitdns', 'webmaster@$dotbitdns','SOA',86400,NULL) AS tmp WHERE NOT EXISTS (SELECT * FROM records WHERE name='$dotbitdns' AND type='SOA')";	
+	$sql = "INSERT INTO records (domain_id, name, content, type, ttl, prio) SELECT * FROM (SELECT '2', '$dotbitdns', 'admin@$dotbitdns','SOA',86400,NULL) AS tmp WHERE NOT EXISTS (SELECT * FROM records WHERE name='$dotbitdns' AND type='SOA')";	
 
 	if (mysqli_query($conn, $sql)) {
     echo "New record created successfully";
@@ -114,6 +128,35 @@ if (strpos($queryentry, '.bit') !== false) {
 	
 	echo "<br><br>";
 	
+	
+
+
+
+include "/var/databasecreds.php";	
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+
+$sql = "SELECT * FROM records where name='dannycremin.bit'";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    echo "<table><tr><th>FQDN</th><th>Type</th><th>Content</th></tr>";
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        echo "<tr><td>". $row["name"]."</td><td>". $row["type"]. "</td>". "<td>" . $row["content"]."</td></tr>";
+    }
+    echo "</table>";
+} else {
+    echo "0 results";
+}
+
+$conn->close();	
+
 
 	
 // Open a 2nd SQL connection to add A record based on .bit query but check if it already exists first.	
