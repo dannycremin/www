@@ -129,8 +129,9 @@ if (strpos($queryentry, '.bit') !== false) {
 	echo "<br><br>";
 	
 	
+/*
 
-
+//Below is code to display table of PDNS results 
 
 include "/var/databasecreds.php";	
 
@@ -157,7 +158,7 @@ if ($result->num_rows > 0) {
 
 $conn->close();	
 
-
+*/
 	
 // Open a 2nd SQL connection to add A record based on .bit query but check if it already exists first.	
 
@@ -240,6 +241,27 @@ $conn->close();
 	echo  "<br>";
 	echo "<pre>$tldqueryresult</pre>";	
 }
+
+include "/var/databasecreds.php";
+	$conn = new mysqli($servername, $username, $password, $dbname);
+	if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+	}
+
+	$sql = "DELETE from records where domain_id = 2";
+
+	if (mysqli_query($conn, $sql)) {
+    echo "New record created successfully";
+	} else {
+    echo "Error: " . $sql1 . "<br>" . mysqli_error($conn);
+	}
+
+	mysqli_close($conn);
+
+
+
+
+
 ?>
 
 
