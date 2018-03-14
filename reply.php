@@ -282,6 +282,7 @@ include "/var/iplogdatabasecreds.php";
 
 	mysqli_close($conn);
 
+echo "Logging details" . "<br><br>";
 
 include "/var/iplogdatabasecreds.php";
 // Create connection
@@ -303,29 +304,10 @@ if ($result->num_rows > 0) {
     echo "0 results";
 }
 $conn->close();
+
+
 ?>	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-?>
+
 
 
