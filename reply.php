@@ -270,7 +270,7 @@ include "/var/iplogdatabasecreds.php";
     die("Connection failed: " . mysqli_connect_error());
 	}
 
-	$sql = "INSERT INTO iplog (RemoteIP, Query) VALUES ('$remoteipaddress', '$queryentry');
+	$sql = "INSERT INTO iplog (RemoteIP, Query) VALUES ('$remoteipaddress', '$queryentry')";
 
 	if (mysqli_query($conn, $sql)) {
     echo "Added remote IP & query to MySQL database";
