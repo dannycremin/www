@@ -242,8 +242,6 @@ $conn->close();
 	echo "<pre>$tldqueryresult</pre>";	
 }
 
-/*
-
 //Code to remove records from database
 
 include "/var/databasecreds.php";
@@ -262,8 +260,25 @@ include "/var/databasecreds.php";
 
 	mysqli_close($conn);
 
+// Log remote IP address & query.
+$remoteipaddress = $_SERVER['REMOTE_ADDR'];
 
-*/
+	
+include "/var/iplogdatabasecreds.php";
+	$conn = new mysqli($servername, $username, $password, $dbname);
+	if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+	}
+
+	$sql = "INSERT INTO iplog (RemoteIP, Query) VALUES ('$remoteipaddress', '$queryentry');
+
+	if (mysqli_query($conn, $sql)) {
+    echo "Added remote IP & query to MySQL database";
+	} else {
+    echo "Error: " . $sql1 . "<br>" . mysqli_error($conn);
+	}
+
+	mysqli_close($conn);
 
 
 ?>
