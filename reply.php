@@ -283,6 +283,49 @@ include "/var/iplogdatabasecreds.php";
 	mysqli_close($conn);
 
 
+include "/var/iplogdatabasecreds.php";
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+
+$sql = "SELECT RemoteIP, Query FROM iplog";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+		echo "Remote IP: " . $row["RemoteIP"]. "Query: " . $row["Query"]. "<br>";
+    }
+} else {
+    echo "0 results";
+}
+$conn->close();
+?>	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 ?>
 
 
