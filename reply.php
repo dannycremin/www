@@ -275,7 +275,7 @@ include "/var/iplogdatabasecreds.php";
 	$sql = "INSERT INTO iplog (RemoteIP, Query) VALUES ('$remoteipaddress', '$queryentry')";
 
 	if (mysqli_query($conn, $sql)) {
-    echo "Added remote IP & query to MySQL database";
+    echo "Added remote IP & query to MySQL database" . "<br>";
 	} else {
     echo "Error: " . $sql1 . "<br>" . mysqli_error($conn);
 	}
@@ -297,7 +297,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-		echo "Remote IP: " . $row["RemoteIP"]. "Query: " . $row["Query"]. "<br>";
+		echo "<b>Remote IP:</b> " . $row["RemoteIP"]. " <b>Query:</b> " . $row["Query"]. "<br>";
     }
 } else {
     echo "0 results";
