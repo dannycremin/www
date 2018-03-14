@@ -18,7 +18,9 @@ table, th, td {
 // If user enters www. on record strip it.
 // If user enters .bit on query strip it
 
-$queryentry= $_POST["queryinput"];
+$prestringlower= $_POST["queryinput"];
+// make the string lowercase
+$queryentry= strtolower($prestringlower);
 
 if (strpos($queryentry, '.bit') !== false) {
 	
