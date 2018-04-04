@@ -298,7 +298,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-		echo "<b>Remote IP:</b> " . $row["RemoteIP"]. " <b>Query:</b> " . $row["Query"]. "<br>";
+		echo "<b>Remote IP:</b> " . $row["RemoteIP"]. " <b>Query:</b> " . $row["Query"]. "<b>Time</b> " . $row["Time"]. "<br>";
     }
 } else {
     echo "0 results";
