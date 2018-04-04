@@ -1,3 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+    border: 1px solid black;
+}
+</style>
+</head>
+<body>
+
+
 <?php
 
 include "/var/iplogdatabasecreds.php";
