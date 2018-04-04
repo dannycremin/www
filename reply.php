@@ -296,9 +296,10 @@ $sql = "SELECT RemoteIP, Query, Time FROM iplog";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
+		echo "<table><tr><th>Remote IP</th><th>Query</th><th>Time</th></tr>";
     // output data of each row
     while($row = $result->fetch_assoc()) {
-		echo "<b>Remote IP:</b> " . $row["RemoteIP"]. " <b>Query:</b> " . $row["Query"]. " <b>Time</b> " . $row["Time"]. "<br>";
+		echo "<tr><td>" . $row["RemoteIP"]. "</td><td>" . $row["Query"]. "</td><td>" . $row["Time"]. "</td></tr>";
     }
 } else {
     echo "0 results";
