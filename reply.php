@@ -292,13 +292,13 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-$sql = "SELECT RemoteIP, Query FROM iplog";
+$sql = "SELECT RemoteIP, Query, Time FROM iplog";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-		echo "<b>Remote IP:</b> " . $row["RemoteIP"]. " <b>Query:</b> " . $row["Query"]. "<b>Time</b> " . $row["Time"]. "<br>";
+		echo "<b>Remote IP:</b> " . $row["RemoteIP"]. " <b>Query:</b> " . $row["Query"]. " <b>Time</b> " . $row["Time"]. "<br>";
     }
 } else {
     echo "0 results";
