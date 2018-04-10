@@ -26,50 +26,50 @@ if (strpos($queryentry, '.bit') !== false) {
 	
 	// If user enters www. on record strip it and pass to $querystripwww variable
 	
-	// TESTING CODE BELOW
+	/*/ TESTING CODE BELOW
 	
 	echo "<b>Output before www. removed</b>";
 	echo "<br><br>";
 	echo $queryentry;
 	echo "<br><br>";
 	
-	// TESTING CODE ENDS
+	*/// TESTING CODE ENDS
 	
 	$querystripwww= str_replace("www.", "", $queryentry);
 	
-	// TESTING CODE BELOW
+	/* / TESTING CODE BELOW
 	
 	echo "<b>Output after www. removed</b>";
 	echo "<br><br>";
 	echo $querystripwww;
 	echo "<br><br>";
 	
-	// TESTING CODE ENDS
+	*/// TESTING CODE ENDS
 	
 	
 	// If user enters .bit on query strip it out and pass to $dotbitquery variable
 	
-	// TESTING CODE BELOW
+	/*/ TESTING CODE BELOW
 	
 	echo "<b>Output before .bit removed</b>";
 	echo "<br><br>";
 	echo $querystripwww;
 	echo "<br><br>";
 	
-	// TESTING CODE ENDS
+	*/// TESTING CODE ENDS
 	
 	$dotbitquery= str_replace(".bit", "", $querystripwww); 
 	
-	// TESTING CODE BELOW
+	/*/ TESTING CODE BELOW
 	
 	echo "<b>Output after .bit removed</b>";
 	echo "<br><br>";
 	echo $dotbitquery;
 	
-	// TESTING CODE ENDS
+	*/// TESTING CODE ENDS
 	
 	
-	// TESTING CODE BELOW
+	/*/ TESTING CODE BELOW
 	
 	echo "<b>JSON response for $dotbitquery</b>";
 	echo "<br><br>";
@@ -77,7 +77,7 @@ if (strpos($queryentry, '.bit') !== false) {
 	$dotbitqueryresult= shell_exec("sudo /usr/bin/namecoind name_show d/$dotbitquery 2>&1");
 	echo "<pre>$dotbitqueryresult</pre>";
 	
-	// TESTING CODE ENDS
+	*/// TESTING CODE ENDS
 	
 	$json= $dotbitqueryresult;
 	$decodedjson= json_decode($json);
