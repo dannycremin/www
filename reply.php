@@ -238,7 +238,7 @@ $conn->close();
 	
 } else {
 	
-	 $domainchecker = "domains.txt";
+	 $domainchecker = "/var/domains.txt";
 	 $domainsearch = $queryentry;
 	 
                 if(exec('grep '.escapeshellarg($domainsearch).' '.$domainchecker)) {
