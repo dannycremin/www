@@ -20,7 +20,8 @@ table, th, td {
 
 $prestringlower= $_POST["queryinput"];
 // make the string lowercase
-$queryentry= strtolower($prestringlower);
+$queryentry= $prestringlower;
+// $queryentry= strtolower($prestringlower);
 
 if (strpos($queryentry, '.bit') !== false) {
 	
