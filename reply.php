@@ -70,7 +70,7 @@ if (strpos($queryentry, '.bit') !== false) {
 	*/// TESTING CODE ENDS
 	
 	
-	/*/ TESTING CODE BELOW
+	// TESTING CODE BELOW
 	
 	echo "<b>JSON response for $dotbitquery</b>";
 	echo "<br><br>";
@@ -78,7 +78,7 @@ if (strpos($queryentry, '.bit') !== false) {
 	$dotbitqueryresult= shell_exec("sudo /usr/bin/namecoind name_show d/$dotbitquery 2>&1");
 	echo "<pre>$dotbitqueryresult</pre>";
 	
-	*/// TESTING CODE ENDS
+	// TESTING CODE ENDS
 	
 	$json= $dotbitqueryresult;
 	$decodedjson= json_decode($json);
@@ -238,6 +238,17 @@ $conn->close();
 	echo "<pre>$dotbitfinaldig</pre>";
 	
 } else {
+	
+	
+	
+	
+
+    if( exec('grep '.escapeshellarg($_GET['$queryentry']).' ./uuids.txt')) {
+        // do stuff
+    }
+
+	
+	
 	
 	 $domainchecker = "/var/domains.txt";
 	 $domainsearch = $queryentry;
