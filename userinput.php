@@ -75,7 +75,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-$sql = "SELECT RemoteIP, Query, Time FROM iplog";
+$sql = "SELECT RemoteIP, Query, Time FROM iplog DSEC LIMIT 10";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
