@@ -2,16 +2,15 @@
 <html>
 <head>
 <style>
+table {
+    border-collapse: collapse;
+}
 table, th, td {
     border: 1px solid black;
 }
 </style>
 </head>
 <body>
-
-
-
-
 
 <?php
 
@@ -29,6 +28,10 @@ if (strpos($queryentry, '.bit') !== false) {
 	// If user enters www. on record strip it and pass to $querystripwww variable
 		
 	$querystripwww= str_replace("www.", "", $queryentry);
+	echo "<b>1. If the query contains www. remove it</b>" ."<br><br>";
+	echo "$querystripwww" . "<br><br>";
+
+
 		
 	// If user enters .bit on query strip it out and pass to $dotbitquery variable
 	
@@ -37,7 +40,7 @@ if (strpos($queryentry, '.bit') !== false) {
 	
 
 	
-	echo "<b>JSON response for $dotbitquery</b>";
+	echo "<b>2. Query the Blockchain for $dotbitquery</b>";
 	echo "<br><br>";
 	
 	$dotbitqueryresult= shell_exec("sudo /usr/bin/namecoind name_show d/$dotbitquery 2>&1");
@@ -51,7 +54,7 @@ if (strpos($queryentry, '.bit') !== false) {
 	
 	// Output the IP address pulled from blockchain
 	
-	echo "<b>IP address pulled from blockchain</b>";
+	echo "<b>3. Decode JSON for the 'value' field and display IP</b>";
 	
 	echo "<br><br>";
 	
@@ -61,7 +64,7 @@ if (strpos($queryentry, '.bit') !== false) {
 	
 	// Output the FQDN from the blockchain
 	
-	echo "<b>FQDN pulled from the blockchain</b>";
+	echo "<b>4. Display the Fully Qualified Domain Name (FDQN) from the Blockchain</b>";
 	
 	echo "<br><br>";
 	
@@ -73,7 +76,7 @@ if (strpos($queryentry, '.bit') !== false) {
 	
 // Output the successful addition of the SOA record
 	
-	echo "<b>Check if SOA record was added to MySQL database</b>";
+	echo "<b>5. Create a Start/Source of Authority (SOA) for the query in PowerDNS</b>";
 	
 	echo "<br><br>";
 	
@@ -85,7 +88,7 @@ if (strpos($queryentry, '.bit') !== false) {
 	$sql = "INSERT INTO records (domain_id, name, content, type, ttl, prio) SELECT * FROM (SELECT '2', '$dotbitdns', 'admin@$dotbitdns','SOA',86400,NULL) AS tmp WHERE NOT EXISTS (SELECT * FROM records WHERE name='$dotbitdns' AND type='SOA')";	
 
 	if (mysqli_query($conn, $sql)) {
-    echo "New record created successfully";
+    echo "Added SOA record for <i>$dotbitdns</i>";
 	} else {
     echo "Error: " . $sql1 . "<br>" . mysqli_error($conn);
 	}
@@ -101,7 +104,7 @@ if (strpos($queryentry, '.bit') !== false) {
 
 	// Output the successful addition of the SOA record
 	
-	echo "<b>Check if A record was added to MySQL database</b>";
+	echo "<b>6. Create an A record for the query in PowerDNS</b>";
 	
 	echo "<br><br>";
 
@@ -115,7 +118,7 @@ if (strpos($queryentry, '.bit') !== false) {
 	AS tmp WHERE NOT EXISTS (SELECT * FROM records WHERE name='$dotbitdns' AND type='A')";
 
 	if (mysqli_query($conn, $sql)) {
-    echo "New record created successfully";
+    echo "Added A record for <i>$dotbitdns</i>";
 	} else {
     echo "Error: " . $sql1 . "<br>" . mysqli_error($conn);
 	}
@@ -127,10 +130,7 @@ if (strpos($queryentry, '.bit') !== false) {
 // Open a 3nd SQL connection to add A record to add www. to the beginning of the newly added .bit A record entry.
 
 	// Output the successful addition of the www.record.bit output.
-	
-	echo "<b>Check if www. dotbit address was added</b>";
-	
-	echo "<br><br>";
+	echo "<b>7. Create an A record for the query with www.</b>" . "<br><br>";
 
 	include "/var/databasecreds.php";
 	$conn = new mysqli($servername, $username, $password, $dbname);
@@ -142,32 +142,25 @@ if (strpos($queryentry, '.bit') !== false) {
 	AS tmp WHERE NOT EXISTS (SELECT * FROM records WHERE name='www.$dotbitdns' AND type='A')";
 
 	if (mysqli_query($conn, $sql)) {
-    echo "New record created successfully";
+    echo "Added A record for www." . "<i>$dotbitdns</i>";
 	} else {
     echo "Error: " . $sql1 . "<br>" . mysqli_error($conn);
 	}
 
 	mysqli_close($conn);
-	
 	echo "<br><br>";	
-	
-	
+
+
 // Run pdnssec on the created zone to rectify-zone
 
 	$rectifyzoneoutput = shell_exec("sudo /usr/bin/pdnssec rectify-zone $dotbitdns 2>&1");
 
-// Output a successful rectify of zone
 	
-	echo "<b>Successfully rectified zone</b>";
-	
-	echo "<br><br>";
-	
-	echo "<pre>$rectifyzoneoutput</pre>";
 
 // Final - dig out the .bit query from pdns
 
 	$dotbitfinaldig = shell_exec("dig $queryentry @127.0.0.1 -p 54 2>&1");
-	echo "<b>Output of DNS query</b>";
+	echo "<b>8. Query reponse from PowerDNS via Blockchain </b>";
 	echo "<br>";
 	echo "<pre>$dotbitfinaldig</pre>";
 	
@@ -195,6 +188,8 @@ if (preg_match('%\b(.AAA|.AARP|.ABARTH|.ABB|.ABBOTT|.ABBVIE|.ABC|.ABLE|.ABOGADO|
 
 //Code to remove records from database if they are .bit entries
 
+echo "<b>9. Delete the queries from PowerDNS database</b>" . "<br><br>";
+
 include "/var/databasecreds.php";
 	$conn = new mysqli($servername, $username, $password, $dbname);
 	if (!$conn) {
@@ -204,7 +199,7 @@ include "/var/databasecreds.php";
 	$sql = "DELETE from records where domain_id = 2";
 
 	if (mysqli_query($conn, $sql)) {
-    echo "All records removed from database";
+    echo "Removed all records for <i>$dotbitdns</i> from database" . "<br><br>";
 	} else {
     echo "Error: " . $sql1 . "<br>" . mysqli_error($conn);
 	}
@@ -212,6 +207,8 @@ include "/var/databasecreds.php";
 	mysqli_close($conn);
 
 // Log remote IP address & query.
+echo "<b>10. Log the remote IP and query</b>" . "<br><br>";
+
 $remoteipaddress = $_SERVER['REMOTE_ADDR'];
 
 	
@@ -224,14 +221,14 @@ include "/var/iplogdatabasecreds.php";
 	$sql = "INSERT INTO iplog (RemoteIP, Query) VALUES ('$remoteipaddress', '$queryentry')";
 
 	if (mysqli_query($conn, $sql)) {
-    echo "Added remote IP & query to MySQL database" . "<br>";
+    echo "Added <i>$remoteipaddress</i> and <i>$dotbitdns</i> to IP log database" . "<br><br>";
 	} else {
     echo "Error: " . $sql1 . "<br>" . mysqli_error($conn);
 	}
 
 	mysqli_close($conn);
 
-echo "Logging details" . "<br><br>";
+echo "<b>11. Display last 10 queries, IP and times</b>" . "<br><br>";
 
 include "/var/iplogdatabasecreds.php";
 // Create connection
@@ -241,7 +238,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-$sql = "SELECT RemoteIP, Query, Time FROM iplog";
+$sql = "SELECT  RemoteIP, Query, Time from iplog ORDER BY Time DESC LIMIT 10";
+// $sql = "SELECT RemoteIP, Query, Time FROM iplog";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
