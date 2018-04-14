@@ -32,16 +32,13 @@ input[type=submit]:hover {
 }
 
 .ipbox {
-    position:relative;
-}
-
-.iplogbox {
     border-radius: 5px;
     background-color: #ffffff;
     padding: 20px;
 	position:absolute;
     bottom:0;
     right:0;
+	position:relative;
 }
 
 .container {
@@ -75,7 +72,7 @@ input[type=submit]:hover {
   </form>
 </div>
 <div class="ipbox">
-<p class="iplogbox">
+
 <?php
 
 
@@ -104,7 +101,6 @@ if ($result->num_rows > 0) {
 $conn->close();
 
 ?>
-</p>
 </div>
 
 
