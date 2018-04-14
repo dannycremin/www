@@ -61,11 +61,41 @@ input[type=submit]:hover {
 
   </form>
 </div>
+<?php
+<div class="container">
+
+echo "Logging details" . "<br><br>";
+
+include "/var/iplogdatabasecreds.php";
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+
+$sql = "SELECT RemoteIP, Query, Time FROM iplog LIMIT 10";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+		echo "<table><tr><th>Remote IP</th><th>Query</th><th>Time</th></tr>";
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+		echo "<tr><td>" . $row["RemoteIP"]. "</td><td>" . $row["Query"]. "</td><td>" . $row["Time"]. "</td></tr>";
+    }
+} else {
+    echo "0 results";
+}
+$conn->close();
+
+</div>
+?>
+
 
 
 <div class="footer">
 
-<p><b>Server IP:</b>164.132.102.42</p>
+<p><b>Server IP: </b>164.132.103.42</p>
 
 
 </div>
