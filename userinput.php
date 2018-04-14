@@ -35,10 +35,10 @@ input[type=submit]:hover {
     border-radius: 5px;
     background-color: #ffffff;
     padding: 20px;
-	position:absolute;
-    bottom:0;
-    right:0;
-	position:relative;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	width: 200px;
 }
 
 .container {
