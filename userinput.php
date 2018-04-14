@@ -61,8 +61,9 @@ input[type=submit]:hover {
 
   </form>
 </div>
-<?php
 <div class="container">
+<?php
+
 
 echo "Logging details" . "<br><br>";
 
@@ -74,7 +75,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-$sql = "SELECT RemoteIP, Query, Time FROM iplog LIMIT 10";
+$sql = "SELECT RemoteIP, Query, Time FROM iplog";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -88,9 +89,8 @@ if ($result->num_rows > 0) {
 }
 $conn->close();
 
-</div>
 ?>
-
+</div>
 
 
 <div class="footer">
