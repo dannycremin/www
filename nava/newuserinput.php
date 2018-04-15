@@ -48,18 +48,18 @@ input[type=submit]:hover {
 
 </style>
 </head>
-<img style="float:left; padding-right:0px;padding-top:0px;" src="litlogo.png">
 <body>
-<br>
-<br>
-<br>
-<br>
-<h1>Blockchain DNS &amp; PowerDNS Query</h1>
+
+<h2>Blockchain / PowerDNS Query Engine</h2>
 
 <div class="container">
-  <form action="reply.php" method="post">
-    <label for="fname">Enter a domain name for resolution</label><br>
-    <input type="text" id="queryinput" name="queryinput" placeholder="               Try google.com or cnsmfyp.bit">
+  <form action="style.php" method="post">
+    <label for="fname">Enter a .bit address to resolve</label><br>
+    <input type="text" id="dotbit" name="dotbit" placeholder="Example: dotbitwhois">
+	<br>
+
+    <label for="lname">Enter a top level domain address to resolve</label><br>
+    <input type="text" id="icann" name="icann" placeholder="Example: google.com">
 	<br>
     <input type="submit" value="Submit">
 
@@ -69,7 +69,7 @@ input[type=submit]:hover {
 
 <div class="footer">
 
-<p><b>Server IP: </b>164.132.102.42</p>
+<p><b>Server: </b>server2.dan.com</p><b>IP Address: </b>54.38.34.58</p>
 
 
 </div>
