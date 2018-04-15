@@ -197,6 +197,7 @@ if (preg_match('%\b(.AAA|.AARP|.ABARTH|.ABB|.ABBOTT|.ABBVIE|.ABC|.ABLE|.ABOGADO|
     
 //echo if a top level domain was matched
     $tldqueryresult = shell_exec("dig   $text  2>&1");
+	echo "The IP for $text is:";
 	echo "<pre>$tldqueryresult</pre>";
 	
 } else {
