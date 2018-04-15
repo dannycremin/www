@@ -163,6 +163,27 @@ if (strpos($queryentry, '.bit') !== false) {
 	echo "<b>8. Query reponse from PowerDNS via Blockchain </b>";
 	echo "<br>";
 	echo "<pre>$dotbitfinaldig</pre>";
+
+echo "<b>9. Delete the queries from PowerDNS database</b>" . "<br><br>";
+
+include "/var/databasecreds.php";
+	$conn = new mysqli($servername, $username, $password, $dbname);
+	if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+	}
+
+	$sql = "DELETE from records where domain_id = 2";
+
+	if (mysqli_query($conn, $sql)) {
+    echo "Removed all records for <i>$dotbitdns</i> from database" . "<br><br>";
+	} else {
+    echo "Error: " . $sql1 . "<br>" . mysqli_error($conn);
+	}
+
+	mysqli_close($conn);
+
+
+
 	
 } else {
 	
@@ -188,23 +209,9 @@ if (preg_match('%\b(.AAA|.AARP|.ABARTH|.ABB|.ABBOTT|.ABBVIE|.ABC|.ABLE|.ABOGADO|
 
 //Code to remove records from database if they are .bit entries
 
-echo "<b>9. Delete the queries from PowerDNS database</b>" . "<br><br>";
+// echo "<b>9. Delete the queries from PowerDNS database</b>" . "<br><br>";
 
-include "/var/databasecreds.php";
-	$conn = new mysqli($servername, $username, $password, $dbname);
-	if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-	}
 
-	$sql = "DELETE from records where domain_id = 2";
-
-	if (mysqli_query($conn, $sql)) {
-    echo "Removed all records for <i>$dotbitdns</i> from database" . "<br><br>";
-	} else {
-    echo "Error: " . $sql1 . "<br>" . mysqli_error($conn);
-	}
-
-	mysqli_close($conn);
 
 // Log remote IP address & query.
 echo "<b>10. Log the remote IP and query</b>" . "<br><br>";
