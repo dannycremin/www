@@ -164,6 +164,9 @@ if (strpos($queryentry, '.bit') !== false) {
 	echo "<br>";
 	echo "<pre>$dotbitfinaldig</pre>";
 
+	
+//Code to remove records from database if they are .bit entries	
+	
 echo "<b>9. Delete the queries from PowerDNS database</b>" . "<br><br>";
 
 include "/var/databasecreds.php";
@@ -207,14 +210,8 @@ if (preg_match('%\b(.AAA|.AARP|.ABARTH|.ABB|.ABBOTT|.ABBVIE|.ABC|.ABLE|.ABOGADO|
 }
 
 
-//Code to remove records from database if they are .bit entries
-
-// echo "<b>9. Delete the queries from PowerDNS database</b>" . "<br><br>";
-
-
-
 // Log remote IP address & query.
-echo "<b>10. Log the remote IP and query</b>" . "<br><br>";
+echo "<b>Log the remote IP and query</b>" . "<br><br>";
 
 $remoteipaddress = $_SERVER['REMOTE_ADDR'];
 
@@ -228,14 +225,14 @@ include "/var/iplogdatabasecreds.php";
 	$sql = "INSERT INTO iplog (RemoteIP, Query) VALUES ('$remoteipaddress', '$queryentry')";
 
 	if (mysqli_query($conn, $sql)) {
-    echo "Added <i>$remoteipaddress</i> and <i>$dotbitdns</i> to IP log database" . "<br><br>";
+    echo "Added <i>$remoteipaddress</i> and <i>$queryentry</i> to IP log database" . "<br><br>";
 	} else {
     echo "Error: " . $sql1 . "<br>" . mysqli_error($conn);
 	}
 
 	mysqli_close($conn);
 
-echo "<b>11. Display last 10 queries, IP and times</b>" . "<br><br>";
+echo "<b>Display last 10 queries, IP and times</b>" . "<br><br>";
 
 include "/var/iplogdatabasecreds.php";
 // Create connection
